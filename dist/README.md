@@ -1,1 +1,0 @@
-<h1>Production build of Frontend</h1>

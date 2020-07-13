@@ -1,0 +1,6 @@
+{
+    "username-taken": {
+        "error": "Username is taken! Please try a different username",
+        "code": 401
+    }
+}
