@@ -1,9 +1,12 @@
 import mongoengine as me
-from flask_mongoengine.wtf import model_form
 
 class Location(me.EmbeddedDocument):
-    latitude = me.LongField(required=True)
-    longitude = me.LongField(required=True)
+    country = me.StringField(required=True)
+    state = me.StringField(required=True)
+    city = me.StringField(required=True)
+    latitude = me.FloatField(required=True)
+    longitude = me.FloatField(required=True)
+    zipcode = me.StringField(required=True)
 
 # class Item(me.EmbeddedDocument):
 #     type = me.StringField(required=True)

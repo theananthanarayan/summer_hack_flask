@@ -3,5 +3,5 @@
 <h3>Project Components</h3>
 <ul>
 <li>/backend - contains the RESTful API for DB and acts as an API gateway for third-party APIs</li>
-<li>/frontend - contains the code for the client applications. Should be packaged into an SPA</li>
+<li>/frontend - contains the code for the client applications.</li>
 </ul>                                               
