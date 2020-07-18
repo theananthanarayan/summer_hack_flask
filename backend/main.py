@@ -25,10 +25,10 @@ from models import User, AskPost, GivePost, Location
 
 
 
-#TODO: add try-catches
+#TODO: add try-catches; low priority
   
 #Add post to user's giveposts
-#POST args: username, item, explanation, radius
+#POST request args: username, item, explanation, radius in JSON format
 #Return response w/ message and status code
 @app.route('/user/post', methods=['POST'])
 def create_givepost():
@@ -43,7 +43,7 @@ def create_givepost():
 
     created = datetime.utcnow()
 
-    #TODO handle non-existent username
+    #TODO handle non-existent username; high priority
     if postType=='give':
         post = GivePost(_id = id, postID=postID, item=item, explanation=explanation, radius=radius, created=created)
         user = User.objects.get(username=username)
@@ -64,8 +64,9 @@ def create_givepost():
 
 
 #Login to database. POST to database to get user information and validate password
+#POST request args: email, password in JSON format
 #Returns error code if unsuccessful or access token if successful
-@app.route('/user/login_user', methods=['POST'])
+@app.route('/auth/login', methods=['POST'])
 def login_user():
     email = request.get_json()['email']
     password = request.get_json()['password']
@@ -76,18 +77,19 @@ def login_user():
         result = jsonify({
             'error': 'Invalid username and password'
         })
+        return Response(result, mimetype="application/json", status=400)
     else:
         access_token = create_access_token(identity = {'firstName': user['firstName'], 'lastName': user['lastName'], \
                                            'email': user['email'], '_id': str(user['_id']), 'userID': str(user['userID'])})
-        result = jsonify({'token': access_token})
+        result = jsonify({'usertoken': access_token})
 
-    return result
+        return Response(result, mimetype="application/json", status=200)
 
 
 #Register a user. POST User to database. Have user info as arguments in JSON format in post 
-#POST args: username, item, explanation, radius
+#POST request args: username, firstname, lastname, password, phone, email, item, explanation, radius in JSON format, location
 #Return response w/ message and status code
-@app.route('/user/register_user', methods=['POST'])
+@app.route('/auth/register', methods=['POST'])
 def register_user():
     id = ObjectId()
     userID = ObjectId()
@@ -95,8 +97,8 @@ def register_user():
     phone = request.get_json()['phone']
     email = request.get_json()['email']
     password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
-    firstName = request.get_json()['first-name']
-    lastName = request.get_json()['last-name']
+    firstName = request.get_json()['firstname']
+    lastName = request.get_json()['lastname']
     locationObj = request.get_json()['location']
     created = datetime.utcnow()
 
@@ -110,7 +112,7 @@ def register_user():
                 'error': 'Username is taken'
             }
         )
-        return Response(error, mimetype='application/json', status=200)
+        return Response(error, mimetype='application/json', status=401)
 
     user = User(_id=id, userID=userID, username=username, email=email, password=password, \
                 phone=phone, firstName = firstName, lastName = lastName, created=created, location=location)

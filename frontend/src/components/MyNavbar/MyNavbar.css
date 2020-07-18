@@ -1,0 +1,28 @@
+.mynavbar {
+    position: -webkit-fixed;
+    position: fixed;
+    margin-bottom: 10px;
+    color: white;
+    width: 100%;
+}
+
+.nav>li>a {
+    color: black;
+}
+
+.mynavbar-btn {
+    width: 120px;
+    margin-left: 20px;
+}
+
+@media only screen and (min-width: 991px) {
+    #collapsible-nav-dropdown {
+        visibility: hidden;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .mynavbar-btn {
+        visibility: hidden;
+    }
+}

@@ -1,0 +1,19 @@
+.FormContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 420px;
+    padding: 30px 10px 40px 10px;
+    margin:0 auto;
+    margin-top: 30px;
+    background-color: #E5F9E0;
+    border-radius: 5px;
+}
+
+.auth-btn {
+    background-color: #0EAD69;
+}
+
+.formGroup {
+    text-align: left;
+}
