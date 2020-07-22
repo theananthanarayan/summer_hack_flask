@@ -8,7 +8,7 @@ from datetime import datetime
 import json
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../dist/build', static_url_path="/")
 CORS(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
@@ -23,6 +23,10 @@ import mongo
 
 from models import User, AskPost, GivePost, Location
 
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 
 #TODO: add try-catches; low priority
@@ -87,10 +91,11 @@ def login_user():
 
 
 #Register a user. POST User to database. Have user info as arguments in JSON format in post 
-#POST request args: username, firstname, lastname, password, phone, email, item, explanation, radius in JSON format, location
+#POST request args: username, firstname, lastname, password, phone, email in JSON format, location
 #Return response w/ message and status code
 @app.route('/auth/register', methods=['POST'])
 def register_user():
+    print(request.get_json())
     id = ObjectId()
     userID = ObjectId()
     username = request.get_json()['username']
@@ -99,11 +104,11 @@ def register_user():
     password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
     firstName = request.get_json()['firstname']
     lastName = request.get_json()['lastname']
-    locationObj = request.get_json()['location']
+    #locationObj = request.get_json()['location']
     created = datetime.utcnow()
 
-    location = Location(country=locationObj['country'], state=locationObj['state'], city=locationObj['city'], \
-        latitude=locationObj['latitude'], longitude=locationObj['longitude'], zipcode=locationObj['zipcode'])
+    # location = Location(country=locationObj['country'], state=locationObj['state'], city=locationObj['city'], \
+    #     latitude=locationObj['latitude'], longitude=locationObj['longitude'], zipcode=locationObj['zipcode'])
 
 
     if User.objects(username=username):
@@ -115,7 +120,7 @@ def register_user():
         return Response(error, mimetype='application/json', status=401)
 
     user = User(_id=id, userID=userID, username=username, email=email, password=password, \
-                phone=phone, firstName = firstName, lastName = lastName, created=created, location=location)
+                phone=phone, firstName = firstName, lastName = lastName, created=created)
 
     user.save()
 

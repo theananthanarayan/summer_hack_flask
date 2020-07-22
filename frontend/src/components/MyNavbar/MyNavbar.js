@@ -3,7 +3,6 @@ import { Nav } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Navbar } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import {Redirect} from 'react-router-dom';
 import './MyNavbar.css';
 
 export default function MyNavbar(props) {  
@@ -11,17 +10,11 @@ export default function MyNavbar(props) {
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const logOutBtn = () => {
-    return (
-      <Link to="/signup">
-          <Button className="mynavbar-btn" variant="outline-secondary" size="sm">sign up</Button>
+  const logOutBtn = (
+      <Link to="/logout">
+          <Button className="mynavbar-btn" variant="outline-secondary" size="sm">log out</Button>
       </Link>
-    )
-  }
-
-  const logOut = () => {
-    return <Redirect to="/login"/>
-  } 
+  )
 
   return (
     <div>
@@ -44,8 +37,8 @@ export default function MyNavbar(props) {
           <Link to="/signup">
             <Button className="mynavbar-btn" variant="outline-secondary" size="sm">sign up</Button>
           </Link>
-            <Link to="/signup">
-            <Button className="mynavbar-btn" variant="outline-secondary" size="sm">sign up</Button>
+          <Link to="/logout">
+            <Button className="mynavbar-btn" variant="outline-secondary" size="sm">log out</Button>
           </Link>
         </Nav>
       </Navbar>
