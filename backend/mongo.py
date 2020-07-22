@@ -9,7 +9,7 @@ with open("./credentials.json") as file:
     credentials = json.load(file)
 
 
-DB_URI = "mongodb+srv://" + credentials["mongodb"]["username"] + ":" + credentials["mongodb"]["password"] + "@" + credentials["mongodb"]["database-name"] + ".mongodb.net/test" + "?retryWrites=true&w=majority"
+DB_URI = "mongodb+srv://" + credentials["mongodb"]["username"] + ":" + credentials["mongodb"]["password"] + "@" + credentials["mongodb"]["cluster-URI"] + ".mongodb.net/" + credentials["mongodb"]["database-name"] + "?retryWrites=true&w=majority"
 
 app.config["MONGODB_HOST"] = DB_URI
 
