@@ -1,72 +1,13 @@
-<!doctype html>
+{% extends "layout.html" %}
 
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-
-</head>
-
-<style>
-  .card-custom {
-        max-width: 128px;
-    }
-  .mt-0 {
-  margin-top: 0 !important;
-}
-.mt-1 {
-  margin-top: 1 !important;
-}
-.mt-2 {
-  margin-top: 2 !important;
-}
-.mt-4 {
-  margin-top: 4 !important;
-}
-.ml-5 {
-  margin-left: 5 !important;
-}
-.mr-5 {
-  margin-right: 5 !important;
-}
-</style>
-
-<script>
-  function relocate_home()
-  {
-       location.href = "/help";
-  } 
-  </script>
-
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <a class="navbar-brand" href="#">Logo</a>
-          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Sign In</a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </div>
-      </nav>
-
+    {% block content %}
+ 
 
       <div class = "mt-4">
         <h2 class = "text-center">Post your offering</h2>
       </div>
 
-      <div class = "mt-4 ml-5 mr-5">
+    <div class = "mt-4 ml-5 mr-5">
       <form>
         <div class="form-group">
           <label for="exampleFormControlInput1">Email address</label>
@@ -105,6 +46,7 @@
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
       </form>
-</div>
-</body>
-</html>
+
+    </div>
+
+    {% endblock %}
