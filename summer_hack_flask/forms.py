@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user 
-from wtforms import StringField, PasswordField, TextAreaField, SubmitField, BooleanField, ValidationError, TextField
+from wtforms import StringField, PasswordField, TextAreaField, SubmitField, BooleanField, ValidationError, TextField, RadioField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from summer_hack_flask import db
 from summer_hack_flask.models import User
@@ -47,3 +47,15 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+class PostForm(FlaskForm):
+    item = StringField('Item', validators=[DataRequired()], render_kw={"placeholder": "eg. Italian, Mexican, Indian or Name any specific cuisine"})
+
+    explanation = TextAreaField('Description', validators=[DataRequired()], render_kw={"placeholder": "Describe your item in a few words"})
+
+    radius = SelectField('Choose your comfortable distance (in mi):', coerce=int, choices=[(2,'2'),(5,'5'),(10,'10'),(15,'15'),(25,'25')], validators=[DataRequired()])
+
+    postType = RadioField('Would you like to:', choices=[('give','Post an Offering'),('ask','Request for an Offering')], validators=[DataRequired()])
+
+    submit = SubmitField('Submit')

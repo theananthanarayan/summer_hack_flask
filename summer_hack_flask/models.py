@@ -35,12 +35,14 @@ class GivePost(me.EmbeddedDocument):
     radius = me.IntField(required=True)
 
 @login_manager.user_loader
-def load_user(username):
-    return User.objects(username=username).first()
+def load_user(user_id):
+    return User.objects(userID=user_id).first()
 
-class User(me.Document, UserMixin):
+
+
+class User(me.Document):
     _id = me.ObjectIdField(required=True)
-    userID = me.ObjectIdField(required=True)
+    userID = me.StringField(required=True)
     email = me.EmailField(required=True)
     password = me.StringField(required=True)
     username = me.StringField(required=True)
@@ -52,4 +54,13 @@ class User(me.Document, UserMixin):
     rating = me.LongField()
     askPosts = me.EmbeddedDocumentListField(AskPost)
     givePosts = me.EmbeddedDocumentListField(GivePost)
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return str(self.userID)
+
+    def is_authenticated(self):
+        return True
 

@@ -3,50 +3,80 @@
     {% block content %}
  
 
-      <div class = "mt-4">
-        <h2 class = "text-center">Post your offering</h2>
-      </div>
+      <div class="card w-75 mt-4 mx-auto p-4">
+        <form method="POST" action="">
+          {{ form.csrf_token() }}
+            {{ form.hidden_tag() }}
 
-    <div class = "mt-4 ml-5 mr-5">
-      <form>
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Email address</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Name</label>
-            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Full Name">
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlInput1">Your Area</label>
-            <input type="text" class="form-control" id="exampleFormControlInput2" placeholder="Location">
-          </div>
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Number of items</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="exampleFormControlSelect2">Comfortable Distance</label>
-          <select multiple class="form-control" id="exampleFormControlSelect2">
-            <option>5 mi</option>
-            <option>10 mi</option>
-            <option>20 mi</option>
-            <option>50 mi</option>
-            <option>100 mi</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Add description here</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-      </form>
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Request or Post an Offering</legend>
 
-    </div>
+                <div class="form-group">
+                    {{ form.item.label(class="form-control-label") }}
+
+                    {% if form.item.errors %}
+                        {{ form.item(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.item.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.item(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.explanation.label(class="form-control-label") }}
+
+                    {% if form.explanation.errors %}
+                        {{ form.explanation(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.explanation.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.explanation(class="form-control form-control", rows="3") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.radius.label(class="form-control-label") }}
+
+                    {% if form.radius.errors %}
+                        {{ form.radius(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.radius.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.radius(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group mt-4">
+                    {{ form.postType.label(class="form-control-label") }}
+
+                    {% if form.postType.errors %}
+                        {{ form.postType(class="is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.postType.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.postType(style="list-style:none") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+            
+        </form>
+</div>
 
     {% endblock %}
