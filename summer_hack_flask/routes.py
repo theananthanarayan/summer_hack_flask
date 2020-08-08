@@ -154,8 +154,8 @@ def post():
 
 @app.route('/filters')
 def filters():  
-    return 'help'
+    return render_template("filters.html")
 
 @app.route('/community')
 def community():
-    return 'help'
+    return render_template("community.html")
