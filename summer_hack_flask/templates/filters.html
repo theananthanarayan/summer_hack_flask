@@ -1,4 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
- 
+
+<div class = "mt-5">
+  <h1 class = "text-center font-weight-bold">Filter Offerings Near Me</h1>
+</div>
+
+<div>
+</br>
+<form action="/action_page.php">
+    <label for="fname" >Keywords (seperated by commas): </label>
+    <input type="text" id="fname" name="fname" size="75"><br><br>
+    <p>Dietary Filters:</p>
+    <table align="center"> 
+        <tr> 
+           <td><input type="checkbox" id="checkVege" name="checkVege" value="Vegetarian" >
+       <label for="vehicle1" margin-right="50px"> Vegetarian</label><br></td> 
+           <td><input type="checkbox" id="checkGlut" name="checkGlut" value="GlutenFree" >
+       <label for="vehicle1"> Gluten-free</label><br></td> 
+        </tr> 
+        <tr> 
+           <td><input type="checkbox" id="checkPork" name="checkPork" value="Pork" >
+       <label for="vehicle1">No pork</label><br></td> 
+           <td><input type="checkbox" id="checkVegan" name="checkVegan" value="Vegan" >
+       <label for="vehicle1">Vegan</label><br></td> 
+        </tr>
+        <tr> 
+           <td><input type="checkbox" id="checkBeef" name="checkBeef" value="Beef" >
+       <label for="vehicle1">No beef</label><br></td> 
+           <td><input type="checkbox" id="checkHalal" name="checkHalal" value="Halal" >
+       <label for="vehicle1">Halal</label><br></td> 
+        </tr>
+     </table> 
+    </br>
+    <label for="fname" >Within (how many miles): </label>
+    <input type="text" id="fname" name="fname" size="15"><br><br>
+</br>
+    <input type="submit" value="Submit">
+  </form>
+</div>
 {% endblock content %}
