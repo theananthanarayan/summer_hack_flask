@@ -1,11 +1,12 @@
 
 from flask import Flask, render_template, session, request, jsonify, Response, flash, redirect, url_for
-from summer_hack_flask import app, bcrypt, db
+from summer_hack_flask import app, bcrypt, db, googleMaps
 from summer_hack_flask.forms import (RegistrationForm, LoginForm, PostForm)
 from summer_hack_flask.models import User, AskPost, GivePost, Location
 from datetime import datetime
 from bson.objectid import ObjectId
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_googlemaps import Map
 
 
 import json
@@ -114,7 +115,34 @@ def logout():
 @login_required
 def offerings():
 
-    return render_template("offerings.html")
+	# Get latitude and longitude of the current user
+	ip_request = requests.get('https://get.geojs.io/v1/ip.json')
+	my_ip = ip_request.json()['ip']  # ip_request.json() => {ip: 'XXX.XXX.XX.X'}
+	geo_request_url = "http://api.ipstack.com/" + my_ip+ "?" + "access_key="+access_key
+	geo_request = requests.get(geo_request_url)
+	geo_data = geo_request.json()
+
+	fname = current_user.firstName
+	lname = current_user.lastName
+
+	latitude = geo_data['latitude']
+	longitude = geo_data['longitude']
+
+	fullmap = Map(
+		identifier="fullmap",
+		lat=latitude,
+		lng=longitude, 
+		markers=[
+		{
+        'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        'lat': latitude,
+        'lng': longitude,
+        'infobox': "<b> This is {{fname}} {{lname}} </b>"
+        },
+ ])
+
+	return render_template("offerings.html", fullmap = fullmap)
+
 
 
 @app.route('/post', methods=['GET', 'POST'])
