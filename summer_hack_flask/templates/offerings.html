@@ -4,7 +4,8 @@
 
   {{ super() }}
 
-  {{fullmap.js}}
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet' />
 
 {% endblock %}
 
@@ -16,11 +17,21 @@
       
    
 
-      <div class="card w-75 mx-auto">
+      <div class="card w-75 mx-auto" id = 'map' style='height: 300px;'></div>
 
-        {{fullmap.html}}
-
-        </div>
+      <script>
+          mapboxgl.accessToken = 'pk.eyJ1IjoiYWRpdHlhMzEwMyIsImEiOiJja2RxZzlveTUwN2dsMndsaXNzMzFmNTFkIn0.6Ej9Pu-pbImdbv6bfxy0DQ';
+        var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/aditya3103/ckdqge3kn04cd19mqsed0j14y',
+        center: [ '{{ longitude }}', '{{ latitude }}'],
+        zoom: 12
+        });
+         
+        var marker = new mapboxgl.Marker()
+        .setLngLat([ '{{ longitude }}', '{{ latitude }}'])
+        .addTo(map);
+        </script>
 
 
 
