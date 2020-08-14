@@ -50,7 +50,7 @@ class LoginForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    item = StringField('Item', validators=[DataRequired()], render_kw={"placeholder": "eg. Italian, Mexican, Indian or Name any specific cuisine"})
+    item = StringField('Cuisine', validators=[DataRequired()], render_kw={"placeholder": "eg. Italian, Mexican, Indian or Name any specific cuisine"})
 
     explanation = TextAreaField('Description', validators=[DataRequired()], render_kw={"placeholder": "Describe your item in a few words"})
 
